@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 #ifdef __x86_64__
-asm (".data\n\
+asm (".section .trampoline, \"dwx\" \n\
  .globl _XtInherit        \n\
  _XtInherit:              \n\
     jmp *_y(%rip)         \n\
