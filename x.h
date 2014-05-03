@@ -3,7 +3,7 @@
 
 typedef void (*func) (void);
 
-extern long _XtInherit[];
+extern void _XtInherit(void);
 
 typedef struct { func callback; } x;
 
