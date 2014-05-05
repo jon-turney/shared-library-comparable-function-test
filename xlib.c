@@ -5,18 +5,17 @@ asm (".section .trampoline, \"dwx\" \n\
  .globl _XtInherit        \n\
  _XtInherit:              \n\
     jmp *_y(%rip)         \n\
-_y: .quad __XtInherit     \n\
+_y: .quad XX__XtInherit     \n\
     .text                 \n");
 #else
 asm (".data\n\
  .globl __XtInherit        \n\
  __XtInherit:      jmp *_y \n\
- _y: .long ___XtInherit    \n\
+ _y: .long _XX__XtInherit    \n\
  .text                     \n");
 #endif
 
-#define _XtInherit __XtInherit
-void _XtInherit ()
+void XX__XtInherit ()
 {
-  printf ("_XtInherit ()\n");
+  printf ("in xlib dll\n");
 }

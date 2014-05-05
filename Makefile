@@ -1,5 +1,7 @@
 # with -O0, things appear to work correctly...
-CFLAGS=-O2 -g
+CFLAGS=-O2 -g --save-temps
+# -fverbose-asm
+# -mcmodel=large
 
 all: xtest.exe
 
@@ -18,14 +20,8 @@ cygxaw.dll: xaw.o cygxlib.dll
 xtest.o: xtest.c
 	gcc $(CFLAGS) -c -o $@ $<
 
-x1.o: x1.c
-	gcc $(CFLAGS) -c -o $@ $<
-
-x2.o: x2.c
-	gcc $(CFLAGS) -c -o $@ $<
-
-xtest.exe: xtest.o x1.o x2.o cygxlib.dll cygxaw.dll
-	gcc $(CFLAGS) -L. -o $@ xtest.o x1.o x2.o -lxlib -lxaw
+xtest.exe: xtest.o cygxlib.dll cygxaw.dll
+	gcc $(CFLAGS) -L. -o $@ xtest.o -lxlib -lxaw
 
 dist: *.c *.h Makefile
 	tar cjf libtest.tar.bz2 *.c *.h Makefile
@@ -36,7 +32,7 @@ clean:
 test: xtest.exe
 	@rebase -v -b 0x400000000 cygxaw.dll
 	@rebase -v -b 0x410000000 cygxlib.dll
-	./xtest
+	@./xtest
 	@rebase -v -b 0x400000000 cygxaw.dll
 	@rebase -v -b 0x600000000 cygxlib.dll
-	./xtest
+	@./xtest
