@@ -1,5 +1,8 @@
 #include <stdio.h>
 
+#define IN_DLL
+#include "x.h"
+
 #ifdef __x86_64__
 asm (".section .trampoline, \"dwx\" \n\
  .globl _XtInherit        \n\

@@ -3,7 +3,13 @@
 
 typedef void (*func) (void);
 
-extern void _XtInherit(void);
+#ifdef IN_DLL
+#define DLLATTRIB  __attribute__ ((dllexport))
+#else
+#define DLLATTRIB  __attribute__ ((dllimport))
+#endif
+
+extern void _XtInherit(void) DLLATTRIB;
 
 typedef struct { func callback; } x;
 

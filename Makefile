@@ -10,12 +10,14 @@ xlib.o: xlib.c
 
 cygxlib.dll: xlib.o
 	gcc $(CFLAGS) -shared -Wl,--out-implib=libxlib.dll.a -o $@ $<
+	objdump -p cygxlib.dll | grep ImageBase
 
 xaw.o: xaw.c
 	gcc $(CFLAGS) -c -o $@ $<
 
 cygxaw.dll: xaw.o cygxlib.dll
 	gcc $(CFLAGS) -shared -Wl,--out-implib=libxaw.dll.a -o $@ $<  -L. -lxlib
+	objdump -p cygxaw.dll | grep ImageBase
 
 xtest.o: xtest.c
 	gcc $(CFLAGS) -c -o $@ $<
